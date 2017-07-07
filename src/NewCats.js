@@ -17,29 +17,31 @@ class NewCats extends Component {
         //this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
             cats: [],
-            dialogOpen: false
+            dialogOpen: false,
+            message: '',
         }
     }
 
     componentWillMount() {}
     handleGetCats() {
-        console.log('哈哈哈');
         axios
             .get(`${config.host}/catList`)
             .then((res) => this.setState({cats: res.data.cats}))
             .catch((err) => {
-                //    暂时简略处理
-                console.log('err', err);
+                //暂时简略处理
+                this.setState({
+                   dialogOpen: true,
+                   message: err,
+                });
             });
     }
     handleSubmit(e) {
         e.preventDefault();
-        console.log('hhhh:', this.refs.catName.getValue());
         let catName = this.refs.catName.getValue();
         if(catName === ''){
-
             this.setState({
                 dialogOpen: true,
+                message: '请输入分类名称',
             });
             return false;
         }
@@ -49,16 +51,18 @@ class NewCats extends Component {
             tagName: catName
         };
         // 提交的时候组织成对象字面量
-        axios
-            .post(`${config.host}/cat`, data)
-            .then((response) => {
-                console.log('response:', response);
+        axios.post(`${config.host}/cat`, data).then((response) => {
+                let result = response.data;
+                if(!result.code == '0'){
+                    this.setState({
+                    dialogOpen: true,
+                    message: result.msg,
+                });
+            }
+                 this.refs.catName.value = '';
                 //处理成功后, 获取最新的Cat 列表
                 this.handleGetCats();
             })
-            .catch((error) => {
-                console.log(error);
-            });
 
     }
     handleClose(){
@@ -81,8 +85,7 @@ class NewCats extends Component {
         return (
             <div className="new-cat">
                 <div
-                    className='cat-items'
-                    style={{
+                    className='cat-items' style={{
                     display: 'flex',
                     flexWrap: 'wrap'
                 }}>
@@ -99,8 +102,8 @@ class NewCats extends Component {
                     </form>
                 </div>
                 {/* 模态框 */}
-                <Dialog title="警告" actions={action} modal={true} open={this.state.dialogOpen}>
-                    请输入分类内容
+                <Dialog title="警告" children={ this.state.message } actions={action} modal={true} open={this.state.dialogOpen}>
+                  { this.state.message }
                 </Dialog>
             </div>
         );
