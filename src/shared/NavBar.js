@@ -29,6 +29,7 @@ import {Tabs, Tab} from 'material-ui/Tabs';
                margin :'0 auto',
                padding: '0 auto',
                boxShadow: '0 1px 1px #888888',
+               zIndex: '102',
             },
             rootHeader :{
                 color: '#8b96aa',
@@ -46,14 +47,12 @@ import {Tabs, Tab} from 'material-ui/Tabs';
         const style = this.getStyles();
         return (
             <MuiThemeProvider>
-                <div className='navbar' >
                 <div className="navbar-header" id='navbar-header' style={style.root}>
                     <a className='navbar-header-item' href="/home">首页</a>
                     <a className='navbar-header-item' href="#">归档</a>
                     <a className='navbar-header-item' href="#">标签</a>
                     <a className='navbar-header-item' href="#">友链</a>
                     <a className='navbar-header-item' href="about">关于</a>
-                </div>
                 </div>
             </MuiThemeProvider>
         );

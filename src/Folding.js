@@ -14,7 +14,6 @@ export default class Folding extends Component {
                 position:'relative',
                 color: '#696969',
                 margin: '1rem auto',
-                borderTop : '1px solid #ddd', //feng的readHub定义border使用一个div来定义的？？？
                 borderBottom : '1px solid #ddd',
                 paddingBottom: '1rem',
                 width: '80%',
@@ -47,8 +46,7 @@ export default class Folding extends Component {
                         marginTop: '1rem',
                     }}>
                         对于未来将统一的国内安卓系统推送标准，并非是类似于谷歌 GCM/FCM 的模式，消息投递的方式与苹果 iOS 在原理上类似，服务器推送的消息到达设备之后将会直接展现，而不必唤醒应用。
-                    </div>
-                    
+                    </div>                   
                 </div>
             </div>
         );
