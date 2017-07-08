@@ -21,8 +21,10 @@ class NewCats extends Component {
             message: '',
         }
     }
-
-    componentWillMount() {}
+    //刚进入这个页面的时候就显示列表标签
+    componentWillMount() {
+        this.handleGetCats();
+    }
     handleGetCats() {
         axios
             .get(`${config.host}/catList`)
