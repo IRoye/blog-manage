@@ -52,6 +52,7 @@ import {Tabs, Tab} from 'material-ui/Tabs';
                     <a className='navbar-header-item' href="#">归档</a>
                     <a className='navbar-header-item' href="/tag">标签</a>
                     <a className='navbar-header-item' href="/login">登录</a>
+                     <a className='navbar-header-item' href="/signup">注册</a>
                 </div>
             </MuiThemeProvider>
         );
