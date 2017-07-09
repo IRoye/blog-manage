@@ -1,0 +1,26 @@
+.login-content:after{
+    content: '.';
+    display: block;
+    height: 0;
+    visibility: hidden;
+    clear: both;
+}
+// 不小于700排PX 的时候
+@media screen and (min-width: 700px){
+   .login-content{
+       height: 70%;
+       width: 35%;
+       position: absolute;
+       margin: auto;
+       left: 0;
+       top: 0;
+       right: 0;
+       bottom : 0;
+   }  
+}
+// 不大于700px的时候
+@media screen and (max-width: 700px){
+   .login-content{
+       width: '98%',
+   }  
+}
