@@ -1,6 +1,4 @@
 // 注册页面
-
-//  登录页面
 import { browserHistory } from 'react-router'
 import React,{Component} from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -13,15 +11,19 @@ export default class LoginPage extends Component {
     e.preventDefault();	
     let params = new URLSearchParams();
     // 获取数据 username, userpass, 这样直接取得是dom 结构
+
+    console.log('refs:', this.refs);
+
     let username = this.refs.username.value;
     let userpass = this.refs.userpass.value;
-    let remember = this.refs.remember.value;
+    let tel = this.refs.tel.value;
     
     params.append('username', username);
     params.append('userpass', userpass);
-    params.append('remember', remember);
+    params.append('tel', tel);
 
-    axios.post(`http://localhost:3000/login`, params).then((data) => {
+    axios.post(`http://localhost:8080/user/signup`, params).then((data) => {
+        console.log('注册返回：', data);
         //code, msg
         if(data.data.code === '0'){
             //页面跳转
@@ -43,7 +45,6 @@ export default class LoginPage extends Component {
             }
         }
     }
-
     render() {
         const styles = this.getStyles();
         return (
@@ -108,7 +109,7 @@ export default class LoginPage extends Component {
                                 verticalAlign: 'middle',
                                 width: '10%',
                             }}/>
-                            <input type="text" placeholder='手机号' id='username' name='username' ref='username' style={styles.input}/>
+                            <input type="text" placeholder='手机号' id='tel' name='tel' ref='tel' style={styles.input}/>
                        </div>
                        <div className='input-field' style={{
                            borderRadius: '0 0 4px 4px',

@@ -55,13 +55,14 @@ export default class LoginPage extends Component {
             <div className="login-body" style={{
                 backgroundColor: '#f0f0f0',
                 minHeight: '100vh',
+                width:'100%',
             }}>
                {/* 登录的div */}
                <div className='login-content' style={{
                    boxShadow: '0 0 8px rgba(0,0,0,.1)',
                    borderRadius: '4px',
                    backgroundColor: '#fff',
-                   width: '400px',
+                   width: '60%',
                    height: '70%',
                    position:'absolute',
                    margin: 'auto',
