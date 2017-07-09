@@ -18,13 +18,11 @@ export default class LoginPage extends Component {
     // 获取数据 username, userpass, 这样直接取得是dom 结构
     let username = this.refs.username.value;
     let userpass = this.refs.userpass.value;
-    let remember = this.refs.remember.value;
     
     params.append('username', username);
     params.append('userpass', userpass);
-    params.append('remember', remember);
 
-    axios.post(`http://localhost:3000/login`, params).then((data) => {
+    axios.post(`http://localhost:8080/user/signin`, params).then((data) => {
         //code, msg
         if(data.data.code === '0'){
             //页面跳转
