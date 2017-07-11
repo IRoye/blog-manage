@@ -7,8 +7,11 @@ import About from './About';
 import Tag from './Tag';
 import LoginPage from './LoginPage';
 import SignupPage from './SignupPage';
+import { Router, browserHistory } from 'react-router';
 // 导出路由规则
-export default(
+export default function getRoutes(){
+  return(
+  <Router history={browserHistory}>
   <Route path='/' component={App}>
      <Route path='/home' component={Home} />
      <Route path='/about' component={About} />
@@ -19,4 +22,6 @@ export default(
      {/* 默认子组件 */}
      <IndexRoute component={Home} />
   </Route>
-);
+  </Router>
+  );
+}

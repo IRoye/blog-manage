@@ -2,8 +2,10 @@ import React, {Component} from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import styles from '../style/Navbar.scss';
 import {Tabs, Tab} from 'material-ui/Tabs';
+import { connect } from 'react-redux';
 
- class NavBar extends Component {
+
+class NavBar extends Component {
 
   // 1. 得有constructor
    constructor(props, context) {
@@ -18,6 +20,9 @@ import {Tabs, Tab} from 'material-ui/Tabs';
                 router.push(e.target.href);
             }
         })
+    }
+    componentWillReceiveProps(nextProps) {
+        console.log('接受nextProps:', nextProps);
     }
     getStyles(){
         return{
@@ -63,4 +68,14 @@ NavBar.contextTypes = {
     router: React.PropTypes.object.isRequired
 };
 
-export default NavBar;
+// 这个函数允许我们将 store 中的数据作为 props 绑定到组件上:
+//  影响的是当前的组件
+const mapStateToProps = (state) => {
+   return{
+       currentUser: state
+}
+};
+//  将 action 作为 props 绑定到 NavBar 上
+//  mapDispatchToProps
+
+export default connect(mapStateToProps)(NavBar);

@@ -6,12 +6,24 @@ import ActionLock from 'material-ui/svg-icons/action/lock';
 import ActionAccountCircle from 'material-ui/svg-icons/action/account-circle';
 import axios from 'axios';
 import './style/LoginPage.scss';
-export default class LoginPage extends Component {
+import store from './redux/store';
+
+// 模拟redux 
+// 导入action 里面的方法；
+import { changeAccount } from './redux/action';
+import { connect } from 'react-redux';
+
+ class LoginPage extends Component {
     //记住我
     remeber(){
       
     }
+    componentDidMount() {
+        //模拟redux 的执行；
 
+        // action 的分发
+        this.props.dispatch(changeAccount("content", "close"));
+    }
     handleSubmit(e){
     // 之前为什么不执行，是因为没有阻止默认的提交事件
     e.preventDefault();	
@@ -25,13 +37,9 @@ export default class LoginPage extends Component {
     params.append('username', username);
     params.append('userpass', userpass);
 
-
-    //alert(params);
     axios.post(`http://192.168.0.105:8080/user/signin`, params).then((data) => {
-        alert(JSON.stringify(data));
         //code, msg
         if(data.data.code === '0'){
-             alert(123);
             //页面跳转
             // 组件外部使用导航；
            browserHistory.push('/home');
@@ -54,6 +62,8 @@ export default class LoginPage extends Component {
     }
 
     render() {
+        let cueerntUser  = store.getState();
+        console.log('有没有传递给登录页面呀？', cueerntUser);
         const styles = this.getStyles();
         return (
             <MuiThemeProvider>
@@ -170,3 +180,6 @@ export default class LoginPage extends Component {
         );
     }
 }
+
+LoginPage = connect()(LoginPage)
+export default LoginPage;
