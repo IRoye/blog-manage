@@ -6,7 +6,7 @@ export const CHANGE_ACCOUNT = 'CHANGE_ACCOUNT';
  *  
  */
 
-export function changeAccount(content, close){
-     console.log('content:', content, 'close:', close);
-     return { type: CHANGE_ACCOUNT, content, close}
+export function changeAccount(currentUser, close){
+     console.log('currentUser:',currentUser , 'close:', close); 
+     return { type: CHANGE_ACCOUNT, currentUser, close}
 }

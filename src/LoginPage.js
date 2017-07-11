@@ -18,12 +18,6 @@ import { connect } from 'react-redux';
     remeber(){
       
     }
-    componentDidMount() {
-        //模拟redux 的执行；
-
-        // action 的分发
-        this.props.dispatch(changeAccount("content", "close"));
-    }
     handleSubmit(e){
     // 之前为什么不执行，是因为没有阻止默认的提交事件
     e.preventDefault();	
@@ -38,11 +32,12 @@ import { connect } from 'react-redux';
     params.append('userpass', userpass);
 
     axios.post(`http://192.168.0.105:8080/user/signin`, params).then((data) => {
-        //code, msg
+        // 返回用户名:
         if(data.data.code === '0'){
             //页面跳转
             // 组件外部使用导航；
            browserHistory.push('/home');
+           this.props.dispatch(changeAccount(data.data.data, "close"));
         }    
     })
 
@@ -63,7 +58,7 @@ import { connect } from 'react-redux';
 
     render() {
         let cueerntUser  = store.getState();
-        console.log('有没有传递给登录页面呀？', cueerntUser);
+        console.log('有没有传递给登录页面呀？', cueerntUser);   
         const styles = this.getStyles();
         return (
             <MuiThemeProvider>
@@ -181,5 +176,11 @@ import { connect } from 'react-redux';
     }
 }
 
-LoginPage = connect()(LoginPage)
+const mapStateToProps = (state) => {
+   return{
+       currentUser: state.cueerntUser
+}
+};
+
+LoginPage = connect(mapStateToProps)(LoginPage)
 export default LoginPage;
