@@ -3,7 +3,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import styles from '../style/Navbar.scss';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import { connect } from 'react-redux';
-import {fetchUser} from '../redux/actions/accountActions';
+import {fetchUser, logout} from '../redux/actions/accountActions';
 
 class NavBar extends Component {
 
@@ -54,8 +54,7 @@ componentWillMount() {
         // let user = this.props.currentUser;
         // console.log('重点：','类型', typeof user,  user);
     //  这里丫的， 就是不能获取对象的属性， 但通过Object.prototype.toString().call()
-    // 的确是一个对象的存在。
-        // 
+    // 的确是一个对象的存在。 
         return (
             <MuiThemeProvider>
                 <div className="navbar-header" id='navbar-header' style={style.root}>
@@ -64,7 +63,8 @@ componentWillMount() {
                     <a className='navbar-header-item' href="/tag">标签</a>
                     <a className='navbar-header-item' href="/login">登录</a>
                      <a className='navbar-header-item' href="/signup">注册</a>
-                     <a className='navbar-header-item' href="/">{this.props.currentUser}</a>
+                     {this.props.currentUser}
+                     <a className='navbar-header-item' href='/' onClick={this.props.logout}>退出</a>
                 </div>
             </MuiThemeProvider>
         );
@@ -74,16 +74,13 @@ componentWillMount() {
 NavBar.contextTypes = {
     router: React.PropTypes.object.isRequired
 };
-
 // 这个函数允许我们将 store 中的数据作为 props 绑定到组件上:
 //  影响的是当前的组件
 const mapStateToProps = (state) => {
-   console.log('传递state:', state);
    return{
        currentUser: state.account.currentUser
 }
 };
 //  将 action 作为 props 绑定到 NavBar 上
 //  mapDispatchToProps
-
-export default connect(mapStateToProps, {fetchUser})(NavBar);
+export default connect(mapStateToProps, {fetchUser, logout})(NavBar);

@@ -17,12 +17,20 @@
  */
 
 import axios from 'axios';
+import { browserHistory } from 'react-router';
+
 
 export function signin(user){
    return dispatch => {
        axios.post(`http://192.168.0.105:8080/user/signin`, user).then((res)=>{
            console.log('登录后返回：', res);
-           dispatch({type:'SIGN_IN', user: res.data._user})
+        //    登录完成，将信息保存在localStorge中
+            localStorage.setItem('userId', res.data._user.userId);
+           dispatch({type:'SIGN_IN', user: res.data._user.username})
+        //跳转到首页
+         console.log('登录之后跳转');
+         browserHistory.push('/home');
+
        }).catch((err) => console.log(err));
    }
 }
@@ -39,7 +47,17 @@ export function fetchUser(){
                     type: 'LOAD_USER',
                     user: res.data._user.username,
                 })
+                browserHistory.push('/home');
             }).catch((err) => console.log('报错：', err));
         }
+    }
+}
+
+export function logout(){
+    return dispatch => {
+        localStorage.removeItem('userId');
+        console.log('logout()');
+        dispatch({type: 'LOG_OUT'})
+        browserHistory.push('/home');
     }
 }
