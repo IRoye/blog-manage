@@ -10,9 +10,8 @@ import store from './redux/store';
 
 // 模拟redux 
 // 导入action 里面的方法；
-import { changeAccount } from './redux/action';
 import { connect } from 'react-redux';
-
+import {signin} from './redux/actions/accountActions';
  class LoginPage extends Component {
     //记住我
     remeber(){
@@ -26,23 +25,13 @@ import { connect } from 'react-redux';
     // 获取数据 username, userpass, 这样直接取得是dom 结构
     let username = this.refs.username.value;
     let userpass = this.refs.userpass.value;
-
     
     params.append('username', username);
     params.append('userpass', userpass);
 
-    axios.post(`http://192.168.0.105:8080/user/signin`, params).then((data) => {
-        // 返回用户名:
-        if(data.data.code === '0'){
-            //页面跳转
-            // 组件外部使用导航；
-           browserHistory.push('/home');
-           this.props.dispatch(changeAccount(data.data.data, "close"));
-        }    
-    })
+    this.props.signin(params);
 
 }
-
     getStyles(){
         return {
             input : {
@@ -178,9 +167,9 @@ import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => {
    return{
-       currentUser: state.cueerntUser
+       currentUser: state.currentUser
 }
 };
 
-LoginPage = connect(mapStateToProps)(LoginPage)
+LoginPage = connect(mapStateToProps, {signin})(LoginPage)
 export default LoginPage;

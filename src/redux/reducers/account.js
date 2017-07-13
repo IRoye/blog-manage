@@ -1,8 +1,15 @@
 function accountReducer(state = [], action) {
-    console.log('我是reducer :', action.currentUser);
-    console.log('类型：', action.type);
-
-    return {currentUser: action.currentUser}
+    console.log('reducers还执行吗？？？');
+    console.log(action.user);
+    console.log(action.type);
+    switch (action.type) {
+        case 'SIGN_IN':
+            return {currentUser: action.user}
+        case 'LOAD_USER':
+            return {currentUser: action.user}
+        default:
+            return state;
+    }
 }
 
 // view 调用action , 现在数据已经到了reducer; reducer用来根据当前状态和action 传递的值来修改state：  下一个问题：

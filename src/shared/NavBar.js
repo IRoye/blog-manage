@@ -3,18 +3,19 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import styles from '../style/Navbar.scss';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import { connect } from 'react-redux';
-
+import {fetchUser} from '../redux/actions/accountActions';
 
 class NavBar extends Component {
 
   // 1. 得有constructor
-   constructor(props, context) {
+constructor(props, context) {
       super(props, context);
       this.context = context;
-      this.state = {
-          currentUser: ''
-      }
    }
+//组件挂载的时候
+componentWillMount() {
+    this.props.fetchUser();
+}
     componentDidMount() {
         let router = this.context.router;
         document.getElementById('navbar-header').addEventListener('click', function(e){
@@ -23,15 +24,6 @@ class NavBar extends Component {
                 router.push(e.target.href);
             }
         })
-    }
-    componentWillReceiveProps(nextProps) {
-        console.log('接受nextProps:', nextProps);
-        //console.log('最终结果：', nextProps.currentUser.account.currentUser);
-        if(nextProps.currentUser){
-             this.setState({
-            currentUser: nextProps.currentUser.account.currentUser
-        })
-        }
     }
     getStyles(){
         return{
@@ -59,6 +51,11 @@ class NavBar extends Component {
     }
     render() {
         const style = this.getStyles();
+        // let user = this.props.currentUser;
+        // console.log('重点：','类型', typeof user,  user);
+    //  这里丫的， 就是不能获取对象的属性， 但通过Object.prototype.toString().call()
+    // 的确是一个对象的存在。
+        // 
         return (
             <MuiThemeProvider>
                 <div className="navbar-header" id='navbar-header' style={style.root}>
@@ -67,7 +64,7 @@ class NavBar extends Component {
                     <a className='navbar-header-item' href="/tag">标签</a>
                     <a className='navbar-header-item' href="/login">登录</a>
                      <a className='navbar-header-item' href="/signup">注册</a>
-                     <a className='navbar-header-item' href="/">{this.state.currentUser}</a>
+                     <a className='navbar-header-item' href="/">{this.props.currentUser}</a>
                 </div>
             </MuiThemeProvider>
         );
@@ -81,11 +78,12 @@ NavBar.contextTypes = {
 // 这个函数允许我们将 store 中的数据作为 props 绑定到组件上:
 //  影响的是当前的组件
 const mapStateToProps = (state) => {
+   console.log('传递state:', state);
    return{
-       currentUser: state
+       currentUser: state.account.currentUser
 }
 };
 //  将 action 作为 props 绑定到 NavBar 上
 //  mapDispatchToProps
 
-export default connect(mapStateToProps)(NavBar);
+export default connect(mapStateToProps, {fetchUser})(NavBar);
