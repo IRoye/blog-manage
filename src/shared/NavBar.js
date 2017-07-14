@@ -64,8 +64,14 @@ componentWillMount() {
         // 登录后显示
         const logoutLink = (
             <div>
-              {this.props.currentUser}    
-              <Link className='navbar-header-item' to='/home' onClick={this.props.logout}>退出</Link>
+              {this.props.currentUser}  
+                {/* 用a 暂时没问题
+                
+                browser.js:49 Warning: A path must be pathname + search + hash only,
+                 not a fully qualified URL like "http://localhost:3000"
+                
+                 */}
+              <a href='/home' className='navbar-header-item' onClick={this.props.logout}>退出</a>
             </div>
         );
         // 登录前显示 

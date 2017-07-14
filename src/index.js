@@ -11,8 +11,6 @@ import store, {history} from './redux/store';
 
 injectTapEventPlugin();
 
-<Router history={history} />
-
 const router = <Provider store={store}>{getRoutes()}</Provider>
 
 render(

@@ -47,7 +47,6 @@ export function fetchUser() {
                 .then((res) => {
                     console.log('fetchUser:', res.data._user);
                     dispatch({type: 'LOAD_USER', user: res.data._user.username})
-                    browserHistory.push('/home');
                 })
                 .catch((err) => console.log('报错：', err));
         }else{
@@ -56,6 +55,9 @@ export function fetchUser() {
     }
 }
 
+//  点击退出， 出现： 
+//  Warning: A path must be pathname + search + hash only,
+// not a full URL like "http://localhost:3000/home"
 export function logout() {
     return dispatch => {
         localStorage.removeItem('userId');

@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-// import { routerReducer } from 'react-router-redux';
+import { routerReducer } from 'react-router-redux';
 
 import account from './account';
 
@@ -9,7 +9,7 @@ import account from './account';
  * 还需要，把这个名字加上。
  * 
  */
-const rootReducer = combineReducers({ account });
+const rootReducer = combineReducers({ account,  routing: routerReducer });
 
 export default rootReducer;
 

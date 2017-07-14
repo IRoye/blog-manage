@@ -22,7 +22,7 @@ const store = createStore(rootReducer, compose(applyMiddleware(thunk)));
 
 //命名导出，引用的时候需要使用的是花括号
 //把浏览过程中的状态信息保存在store树种
-// export const history = syncHistoryWithStore(browserHistory, store);
+export const history = syncHistoryWithStore(browserHistory, store);
 
 
 console.log('store:', store.getState());
