@@ -1,6 +1,5 @@
 function accountReducer(state = [], action) {
-    console.log('reducers还执行吗？？？');
-    console.log(action.user);
+    console.log('reducers还执行吗？？？', action);
     console.log(action.type);
     switch (action.type) {
         case 'SIGN_IN':
@@ -8,7 +7,7 @@ function accountReducer(state = [], action) {
         case 'LOAD_USER':
             return {currentUser: action.user}
         case 'LOG_OUT':
-            return {currentUser : ''}
+            return {currentUser : action.user}
         default:
             return state;
     }

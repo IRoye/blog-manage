@@ -167,7 +167,7 @@ import {signin} from './redux/actions/accountActions';
 
 const mapStateToProps = (state) => {
    return{
-       currentUser: state.currentUser
+       currentUser: state.account.currentUser
 }
 };
 
