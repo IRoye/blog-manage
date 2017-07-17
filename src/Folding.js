@@ -1,5 +1,7 @@
 /**
- * 折叠文章
+ * 折叠文章， 首页展示文章列表是不需要
+ * 
+ * markdown 的样式   文章详细页面的时候使用
  */
 import React,{Component} from 'react';
 export default class Folding extends Component {
@@ -7,7 +9,6 @@ export default class Folding extends Component {
     getStyles(){
         return{
             root:{
-                height: '100vh',
                 textAlign: 'left',
             },
             content: {
@@ -27,12 +28,13 @@ export default class Folding extends Component {
     }
     render() {
         const styles = this.getStyles();
+        const {title, content, brief} = this.props;
         return (
             <div className="app-fold" style={styles.root}>
                 <div className='app-flod-content' style={styles.content}>
                     <h3>
                         <div className='main'>
-                            ISS 直播 SpaceX「龙」 飞船对接画面
+                            {title}
                             <div className='time' style={styles.time}>
                                 7 小时前
                             </div>
@@ -45,7 +47,7 @@ export default class Folding extends Component {
                         width: '90%',
                         marginTop: '1rem',
                     }}>
-                        对于未来将统一的国内安卓系统推送标准，并非是类似于谷歌 GCM/FCM 的模式，消息投递的方式与苹果 iOS 在原理上类似，服务器推送的消息到达设备之后将会直接展现，而不必唤醒应用。
+                        {content}
                     </div>                   
                 </div>
             </div>
