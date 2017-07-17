@@ -91,6 +91,7 @@ componentWillMount() {
             <MuiThemeProvider>
                 <div className="navbar-header" id='navbar-header' style={style.root}>
                     <Link  className='navbar-header-item' to="/home">首页</Link >
+                    <Link  className='navbar-header-item' to="/newPost">新文章</Link >
                     <Link  className='navbar-header-item' to="#">归档</Link >
                     <Link  className='navbar-header-item' to="/tag">标签</Link >
                      {this.props.currentUser.length == 0 ? loginLink : logoutLink}

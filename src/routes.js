@@ -8,6 +8,7 @@ import Tag from './Tag';
 import LoginPage from './LoginPage';
 import SignupPage from './SignupPage';
 import { Router, browserHistory } from 'react-router';
+import newPost from './newPost';
 // 导出路由规则
 
 //  定义路由的中间件
@@ -29,6 +30,8 @@ export default function getRoutes(){
      <Route path='/about' component={About} />
      {/* 标签 */}
      <Route path='/tag' onEnter={requireAuth} component={Tag} />
+     {/*  新建文章  */}
+     <Route path='/newPost' component={newPost} />
      <Route path='/login' component={LoginPage} />
      <Route path='/signup' component={SignupPage} />
      {/* 默认子组件 */}
