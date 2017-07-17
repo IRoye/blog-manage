@@ -20,7 +20,7 @@ class NewProduct extends Component {
     componentWillMount() {
         this.getCats();
     }
-    getCats() {
+    getCats() { 
         axios
             .get(`${config.host}/catList`)
             .then((res) => {
