@@ -9,6 +9,18 @@ import LoginPage from './LoginPage';
 import SignupPage from './SignupPage';
 import { Router, browserHistory } from 'react-router';
 // 导出路由规则
+
+//  定义路由的中间件
+
+
+function requireAuth(nextState, replace) {
+  if (!localStorage.getItem('userId')) {
+    replace({
+      pathname: '/login'
+    })
+  }
+}
+
 export default function getRoutes(){
   return(
   <Router history={browserHistory}>
@@ -16,7 +28,7 @@ export default function getRoutes(){
      <Route path='/home' component={Home} />
      <Route path='/about' component={About} />
      {/* 标签 */}
-     <Route path='/tag' component={Tag} />
+     <Route path='/tag' onEnter={requireAuth} component={Tag} />
      <Route path='/login' component={LoginPage} />
      <Route path='/signup' component={SignupPage} />
      {/* 默认子组件 */}
