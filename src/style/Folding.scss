@@ -1,0 +1,11 @@
+.btn-hover:hover{
+    background: #4D85D1;
+    // CSS 设置了color 属性之后， 之后再次hover 中设置颜色就不管用了
+    // color: black;
+}
+a.btn-hover:hover span{
+    color: white;
+}
+a{
+    text-decoration: none;
+}

@@ -4,6 +4,10 @@
  * markdown 的样式   文章详细页面的时候使用
  */
 import React,{Component} from 'react';
+import FoldingStyles from './style/Folding.scss';
+import {Link} from 'react-router';
+import config from './config/config';
+
 export default class Folding extends Component {
 
     getStyles(){
@@ -28,7 +32,7 @@ export default class Folding extends Component {
     }
     render() {
         const styles = this.getStyles();
-        const {title, content, brief} = this.props;
+        const {title, content, brief, id} = this.props;
         return (
             <div className="app-fold" style={styles.root}>
                 <div className='app-flod-content' style={styles.content}>
@@ -48,6 +52,11 @@ export default class Folding extends Component {
                         marginTop: '1rem',
                     }}>
                         {content}
+                    <Link to={{ pathname: '/post', query: { id: id } }} className='btn-hover' style={{
+                        float: 'right',
+                        color: '#4D85D1',
+                        padding: '0.3rem 1rem'
+                    }}><span>继续阅读</span></Link> 
                     </div>                   
                 </div>
             </div>

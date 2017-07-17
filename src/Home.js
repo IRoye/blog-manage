@@ -26,7 +26,7 @@ export default class Home extends Component {
         let posts = this.state.posts.map((item, i) => {
             return (
             <div className="class-name" key={i}>
-                <Folding key={i} title={item.title} content={item.content} brief={item.content}/>
+                <Folding key={i} id= {item._id} title={item.title} content={item.content} brief={item.content}/>
             </div>
         );
         });
