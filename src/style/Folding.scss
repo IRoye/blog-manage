@@ -9,3 +9,15 @@ a.btn-hover:hover span{
 a{
     text-decoration: none;
 }
+a.btn-hover{
+    clear: left;
+    display: block;
+}
+
+.clearfix:after{
+    content: '.';
+    display: block;
+    height: 0;
+    visibility: hidden;
+    clear:both;
+}

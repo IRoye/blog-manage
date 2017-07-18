@@ -9,5 +9,16 @@ export default StyleSheet.create({
   },
   'a': {
     'textDecoration': 'none'
+  },
+  'abtn-hover': {
+    'clear': 'left',
+    'display': 'block'
+  },
+  'clearfix:after': {
+    'content': ''.'',
+    'display': 'block',
+    'height': [{ 'unit': 'px', 'value': 0 }],
+    'visibility': 'hidden',
+    'clear': 'both'
   }
 });
