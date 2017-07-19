@@ -5,6 +5,11 @@
     visibility: hidden;
     clear: both;
 }
+
+input:-webkit-autofill {
+    box-shadow: 0 0 0px 1000px white inset;
+}
+
 // 不小于700排PX 的时候
 @media screen and (min-width: 700px){
    .login-content{
