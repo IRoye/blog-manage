@@ -32,7 +32,7 @@ export default class Folding extends Component {
     }
     render() {
         const styles = this.getStyles();
-        const {title, content, brief, id} = this.props;
+        const {title, content, brief, id, general} = this.props;
         return (
             <div className="app-fold" style={styles.root}>
                 {/*  需要父元素包裹浮动的子元素  */}
@@ -52,7 +52,7 @@ export default class Folding extends Component {
                         width: '90%',
                         marginTop: '1rem',
                     }}>
-                        {content}
+                        {general}
                     </div> 
                     <Link to={{ pathname: '/post', query: { id: id } }} className='btn-hover' style={{
                         float: 'right',

@@ -23,8 +23,9 @@ class Form extends Component {
         // 获取标签的id 值
         const tags = this.state.tags;
         const title = this.refs.title.value;
+        const general = this.refs.general.value;
         const content = this.refs.content.value;
-        this.props.publishPost({tags, title, content});
+        this.props.publishPost({tags, title, general,content});
     }
     getCats() {
         axios
@@ -132,6 +133,17 @@ class Form extends Component {
                 <div style={styles.div}>
                     <label style={styles.label}>标题</label>
                     <input style={styles.input} key='1' ref='title'/>
+                </div>
+                <div style={styles.div}>
+                    <label style={styles.label}>概要</label>
+                    <textarea
+                        style={[
+                        styles.input, {
+                            height: '100%'
+                        }
+                    ]}
+                        rows='5'
+                        ref='general'/>
                 </div>
                 <div style={styles.div}>
                     <label style={styles.label}>内容</label>

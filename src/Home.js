@@ -21,11 +21,10 @@ export default class Home extends Component {
             }).catch(err => console.log(err))
     }
     render() {
-        console.log(this.state.posts);
         let posts = this.state.posts.map((item, i) => {
             return (
             <div className="class-name" key={i}>
-                <Folding key={i} id= {item._id} title={item.title} content={item.content} brief={item.content}/>
+                <Folding key={i} id= {item._id} title={item.title} general={item.general} content={item.content} brief={item.content}/>
             </div>
         );
         });

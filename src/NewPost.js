@@ -48,7 +48,7 @@ class NewPost extends Component {
    render(){
        const styles = this.getstyles();
        return (
-           <div style={styles.root}>              
+           <div style={styles.root}>               
                    <div style={styles.title}>写文章</div>
                <Form  publishPost={this.publishPost.bind(this)}/>
            </div>

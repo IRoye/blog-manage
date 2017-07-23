@@ -16,9 +16,7 @@ class Post extends Component {
     }
 
     componentDidMount() {
-        console.log('进来了吗？');
         this.getPost();
-        console.log('执行了吗？');
     }
 
     getPost(){
