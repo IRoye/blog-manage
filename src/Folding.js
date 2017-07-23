@@ -54,13 +54,13 @@ export default class Folding extends Component {
                     }}>
                         {general}
                     </div> 
-                    <Link to={{ pathname: '/post', query: { id: id } }} className='btn-hover' style={{
+                    <Link to={{ pathname: '/editPost', query: { id: id } }} className='btn-hover' style={{
                         float: 'right',
                         color: '#4D85D1',
                         padding: '0.3rem 1rem',
                         clear: 'left',
                         display: 'block',
-                    }}><span>继续阅读</span></Link>   
+                    }}><span>编辑</span></Link>   
                      {/* 提阿尼啊非浮动子元素 */}
                 </div>
             </div>

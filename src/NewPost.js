@@ -9,7 +9,7 @@ class NewPost extends Component {
   axios.post(`${config.host}/post/newPost`, data).then(
       res => {
           console.log(res.data.message);
-         //这种方式会把跳转载入浏览器历史
+          //这种方式会把跳转载入浏览器历史
           this.context.router.push('/');
       }
   ).catch(error => {

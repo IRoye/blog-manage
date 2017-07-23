@@ -1,22 +1,33 @@
-import React, {Component} from 'react';
+// 编辑文章界面
+
+import React,{Component} from 'react';
 import {Link} from 'react-router';
 import Radium from 'radium';
 import axios from 'axios';
 import config from './config/config';
 
-class Form extends Component {
+export default class EditPost extends Component {
 
-    constructor(props) {
+     constructor(props) {
         //初始化state，并且把props转化为state
+        console.log('link 传递：', props.location);
+        // 文章
+        let postId  = props.location.query.id;
         super(props);
         this.state = {
-            //  初始化标签的状态
+            //初始化标签的状态
             tags: [],
+            // 这个是所有的标签
             cats: [],
+            postId: postId,
+            post:{}
         }
     }
     componentWillMount() {
+        // 初始化页面之前获取所有的标签列表
         this.getCats();
+        //返回文章
+        this.getPost(); 
     }
     handleSubmit(e) {
         e.preventDefault();
@@ -27,6 +38,7 @@ class Form extends Component {
         const content = this.refs.content.value;
         this.props.publishPost({tags, title, general,content});
     }
+    // 获取所有的标签
     getCats() {
         axios
             .get(`${config.host}/catList`)
@@ -35,6 +47,23 @@ class Form extends Component {
             })
             .catch(err => console.log(err))
     }
+    // 获取文章
+    getPost(){
+       axios.get(`${config.host}/post/getPost`,{
+           params:{
+               postId: this.state.postId
+           }
+       }).then((res) => {
+                console.log('返回文章：', res.data);
+                // 设置文章内容
+                this.setState({
+                    post: res.data.post,
+                    tags: res.data.post.tags
+                })
+            })
+            .catch(err => console.log(err)) 
+    }
+    // 样式 
     getStyles() {
         return {
             form: {
@@ -52,7 +81,7 @@ class Form extends Component {
             },
             input: {
                 width: '100%',
-                height: '48px',
+                height: '100%',
                 border: '1px solid #ddd',
                 borderRadius: '5px',
                 fontSize: '1em',
@@ -109,7 +138,7 @@ class Form extends Component {
 
     }
     render() {
-        let {cats, tags}  = this.state;
+        let {cats, tags, post}  = this.state;
         const styles = this.getStyles();
         let optionList = this.state.cats.map((item, i) => {
                 let tag = item._id;
@@ -132,30 +161,22 @@ class Form extends Component {
                 </div>
                 <div style={styles.div}>
                     <label style={styles.label} >标题</label>
-                    <input style={styles.input} key='1' ref='title'/>
+                    <input style={styles.input} key='1' ref='title' value={post.title}/>
                 </div>
                 <div style={styles.div}>
                     <label style={styles.label}>概要</label>
                     <textarea
-                        style={[
-                        styles.input, {
-                            height: '100%'
-                        },
-                    ]}
+                        style={styles.input}
                         rows='5'
-                        ref='general'/>
+                        ref='general' value={post.general}/>
                 </div>
                 <div style={styles.div}>
                     <label style={styles.label}>内容</label>
                     <textarea
-                        style={[
-                        styles.input, {
-                            height: '100%'
-                        }
-                    ]}
+                        style={styles.input}
                         rows='20'
                         key='2'
-                        ref='content'/>
+                        ref='content' value={post.content}/>
                 </div>
                 <div style={styles.actions}>
                     {/*  */}
@@ -167,5 +188,3 @@ class Form extends Component {
         );
     }
 }
-
-export default Radium(Form);
