@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Form from './Form';
 import axios from 'axios';
 import config from './config/config';
+import { browserHistory } from 'react-router'
 
 class NewPost extends Component {
  
@@ -10,7 +11,7 @@ class NewPost extends Component {
       res => {
           console.log(res.data.message);
           //这种方式会把跳转载入浏览器历史
-          this.context.router.push('/');
+          browserHistory.push('/home');
       }
   ).catch(error => {
     if (error.response) {

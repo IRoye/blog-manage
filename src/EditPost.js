@@ -5,6 +5,7 @@ import {Link} from 'react-router';
 import Radium from 'radium';
 import axios from 'axios';
 import config from './config/config';
+import { browserHistory } from 'react-router';
 
 export default class EditPost extends Component {
 
@@ -20,7 +21,10 @@ export default class EditPost extends Component {
             // 这个是所有的标签
             cats: [],
             postId: postId,
-            post:{}
+            post:{},
+            content: '',
+            title: '',
+            general: '',
         }
     }
     componentWillMount() {
@@ -33,10 +37,10 @@ export default class EditPost extends Component {
         e.preventDefault();
         // 获取标签的id 值
         const tags = this.state.tags;
-        const title = this.refs.title.value;
-        const general = this.refs.general.value;
-        const content = this.refs.content.value;
-        this.props.publishPost({tags, title, general,content});
+        const title = this.state.title;
+        const general = this.state.general;
+        const content = this.state.content;
+        this.editPost({tags, title, general,content});
     }
     // 获取所有的标签
     getCats() {
@@ -46,6 +50,27 @@ export default class EditPost extends Component {
                 this.setState({cats: res.data.cats})
             })
             .catch(err => console.log(err))
+    }
+    handleInputChange(e){
+        console.log('123', e.target.name);
+        switch(e.target.name){
+            case 'title':   
+            this.setState({
+            title: e.target.value,
+        });break;
+            case 'general':
+            this.setState({
+            general: e.target.value,
+        });break;
+
+            case 'content':
+            this.setState({
+            content: e.target.value,
+        });break;
+         default:
+         this.setState({
+        })          
+        }
     }
     // 获取文章
     getPost(){
@@ -58,11 +83,30 @@ export default class EditPost extends Component {
                 // 设置文章内容
                 this.setState({
                     post: res.data.post,
-                    tags: res.data.post.tags
+                    tags: res.data.post.tags,
+                    general: res.data.post.general,
+                    content: res.data.post.content,
+                    title: res.data.post.title,
                 })
             })
-            .catch(err => console.log(err)) 
+            .catch(err => console.log(err))
     }
+    //  提交修改后的文章
+  editPost(data){
+  axios.post(`${config.host}/post/editPost`, data).then(
+      res => {
+          console.log(res.data.message);
+          //这种方式会把跳转载入浏览器历史
+          browserHistory.push('/home');
+      }
+  ).catch(error => {
+    if (error.response) {
+      console.log(error.response.data.error);
+    } else {
+      console.log(error.message);
+    }
+  })
+  }
     // 样式 
     getStyles() {
         return {
@@ -139,6 +183,8 @@ export default class EditPost extends Component {
     }
     render() {
         let {cats, tags, post}  = this.state;
+        let title = post.title;
+        console.log('post:', post.title);
         const styles = this.getStyles();
         let optionList = this.state.cats.map((item, i) => {
                 let tag = item._id;
@@ -161,14 +207,15 @@ export default class EditPost extends Component {
                 </div>
                 <div style={styles.div}>
                     <label style={styles.label} >标题</label>
-                    <input style={styles.input} key='1' ref='title' value={post.title}/>
+                    <input style={styles.input} key='1' name='title' ref='title' value={this.state.title} onChange={this.handleInputChange.bind(this)} />
                 </div>
                 <div style={styles.div}>
                     <label style={styles.label}>概要</label>
                     <textarea
                         style={styles.input}
                         rows='5'
-                        ref='general' value={post.general}/>
+                        name='general'
+                        ref='general' value={this.state.general} onChange={this.handleInputChange.bind(this)} />
                 </div>
                 <div style={styles.div}>
                     <label style={styles.label}>内容</label>
@@ -176,11 +223,12 @@ export default class EditPost extends Component {
                         style={styles.input}
                         rows='20'
                         key='2'
-                        ref='content' value={post.content}/>
+                        name='content'
+                        ref='content' value={this.state.content} onChange={this.handleInputChange.bind(this)} />
                 </div>
                 <div style={styles.actions}>
                     {/*  */}
-                    <button type='submit' style={styles.button}>发布文章</button>
+                    <button type='submit' style={styles.button}>修改文章</button>
                     {/* 取消的时候直接把所有的页面元素给reset */}
                     <Link to='/' style={styles.link}>取消</Link>
                 </div>
