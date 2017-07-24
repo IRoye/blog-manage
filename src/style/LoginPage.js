@@ -10,5 +10,11 @@ export default StyleSheet.create({
   },
   'input:-webkit-autofill': {
     'boxShadow': [{ 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 1000 }, { 'unit': 'string', 'value': 'white' }, { 'unit': 'string', 'value': 'inset' }]
+  },
+  'error': {
+    'visibility': 'hidden'
+  },
+  'is-visible': {
+    'visibility': 'visible'
   }
 });
