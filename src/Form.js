@@ -5,7 +5,6 @@ import axios from 'axios';
 import config from './config/config';
 
 class Form extends Component {
-
     constructor(props) {
         //初始化state，并且把props转化为state
         super(props);

@@ -7,7 +7,7 @@ import axios from 'axios';
 import config from './config/config';
 import { browserHistory } from 'react-router';
 
-export default class EditPost extends Component {
+class EditPost extends Component {
 
      constructor(props) {
         //初始化state，并且把props转化为state
@@ -236,3 +236,6 @@ export default class EditPost extends Component {
         );
     }
 }
+
+// 让伪类这种， 起作用
+export default Radium(EditPost);
